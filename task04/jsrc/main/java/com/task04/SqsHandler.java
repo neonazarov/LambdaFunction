@@ -9,6 +9,9 @@ import com.syndicate.deployment.annotations.resources.DependsOn;
 import com.syndicate.deployment.model.ResourceType;
 import com.syndicate.deployment.model.RetentionSetting;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @LambdaHandler(
 		lambdaName = "sqs_handler",
 		roleName = "sqs_handler-role",
