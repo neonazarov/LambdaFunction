@@ -16,8 +16,7 @@ import java.util.Map;
 @LambdaHandler(
     lambdaName = "sns_handler",
 	roleName = "sns_handler-role",
-	isPublishVersion = true,
-	aliasName = "${lambdas_alias_name}",
+	isPublishVersion = false,
 	logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
 @SnsEventSource(targetTopic = "lambda_topic", regionScope = RegionScope.DEFAULT)
