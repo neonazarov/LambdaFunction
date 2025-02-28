@@ -10,8 +10,6 @@ import com.syndicate.deployment.model.RegionScope;
 import com.syndicate.deployment.model.ResourceType;
 import com.syndicate.deployment.model.RetentionSetting;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @LambdaHandler(
     lambdaName = "sns_handler",
@@ -20,20 +18,18 @@ import java.util.Map;
 	aliasName = "${lambdas_alias_name}",
 	logsExpiration = RetentionSetting.SYNDICATE_ALIASES_SPECIFIED
 )
-@SnsEventSource(targetTopic = "lambda_topic", regionScope = RegionScope.DEFAULT)
+@SnsEventSource(
+		targetTopic = "lambda_topic",
+		regionScope  = RegionScope.DEFAULT
+)
 @DependsOn(
 		name = "lambda_topic",
 		resourceType = ResourceType.SNS_TOPIC
 )
-public class SnsHandler implements RequestHandler<SNSEvent, Map<String, Object>> {
+public class SnsHandler implements RequestHandler<SNSEvent, Void> {
 
-	public Map<String, Object> handleRequest(SNSEvent request, Context context) {
-		context.getLogger().log("SNS lambda handler :" + request.toString());
-
-		System.out.println("Hello from lambda");
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap.put("statusCode", 200);
-		resultMap.put("body", "Hello from Lambda");
-		return resultMap;
+	public Void handleRequest(SNSEvent event, Context context) {
+		context.getLogger().log(event.toString());
+		return null;
 	}
 }
