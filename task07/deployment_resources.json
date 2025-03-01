@@ -14,7 +14,11 @@
             "dynamodb:DeleteItem",
             "ssm:PutParameter",
             "ssm:GetParameter",
-            "kms:Decrypt"
+            "kms:Decrypt",
+            "appsync:GraphQL",
+            "appsync:GetGraphqlApi",
+            "appsync:ListGraphqlApis",
+            "appsync:ListApiKeys"
           ],
           "Effect": "Allow",
           "Resource": "*"
@@ -23,16 +27,28 @@
       "Version": "2012-10-17"
     },
     "resource_type": "iam_policy",
-    "layers": ["weatherClient"],
     "tags": {}
   },
-  "api_handler-role": {
+  "Events": {
+    "resource_type": "dynamodb_table",
+    "hash_key_name": "id",
+    "hash_key_type": "S",
+    "read_capacity": 1,
+    "write_capacity": 1,
+    "global_indexes": [],
+    "autoscaling": [],
+    "tags": {}
+  },
+  "app-sync-role": {
+    "resource_type": "iam_role",
+    "principal_service": "appsync",
     "predefined_policies": [],
-    "principal_service": "lambda",
     "custom_policies": [
       "lambda-basic-execution"
     ],
-    "resource_type": "iam_role",
+    "allowed_accounts": [],
+    "instance_profile": false,
+    "permissions_boundary": "",
     "tags": {}
   }
 }
